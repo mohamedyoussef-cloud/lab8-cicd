@@ -10,9 +10,9 @@ const pool = new Pool({
 
 app.get('/tasks', async (req, res) => {
   const result = await pool.query('SELECT * FROM tasks');
-  res.json(result.rows);
-});
+  const tasks = result.rows;
 
-app.listen(port, '0.0.0.0', () => {
-  console.log("Server running");
+  tasks.push({ id: 999, name: 'Tea', status: 'pending' });
+
+  res.json(tasks);
 });
